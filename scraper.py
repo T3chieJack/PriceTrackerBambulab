@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 import json
 
-URL = "https://uk.store.bambulab.com/products/pla-basic-filament"
+URL = "https://uk.store.bambulab.com/collections/bambu-lab-3d-printer-filament"
 
 def scrape_bambu_prices():
     with sync_playwright() as p:
