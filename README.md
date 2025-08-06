@@ -55,7 +55,7 @@ pip install -r requirements.txt
 python -m playwright install
 python scraper.py
 This will generate a fresh prices.json with the latest scraped data.
-
+## 🗒️ Noticeboard
 📬 Future Plans
 📈 Track historical price changes
 
