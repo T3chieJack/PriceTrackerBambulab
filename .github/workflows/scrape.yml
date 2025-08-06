@@ -3,14 +3,14 @@ name: Scrape BambuLab Filament Prices
 on:
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours
-  workflow_dispatch:
+  workflow_dispatch:        # Manual run support
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -26,11 +26,11 @@ jobs:
       - name: Run scraper
         run: python scraper.py
 
-      - name: Commit changes
+      - name: Commit updated prices
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add prices.json
-          git commit -m "Update prices [auto]" || echo "No changes to commit"
+          git commit -m "Update prices [auto]" || echo "No changes"
           git push
 
