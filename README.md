@@ -25,3 +25,64 @@ This project automatically tracks and logs the latest filament prices from the [
     "price": "€21,99"
   }
 ]
+⚙️ How It Works
+scraper.py uses Playwright to simulate a browser and extract filament prices.
+
+GitHub Actions (in .github/workflows/scrape.yml) runs the scraper every 6 hours.
+
+prices.json is committed and pushed if prices change.
+
+🛠️ Tech Stack
+Python 3.11
+
+Playwright for headless browser control
+
+GitHub Actions for automation
+
+🧩 Setup for Local Use
+bash
+Copy
+Edit
+git clone https://github.com/T3chieJack/PriceTrackerBambulab.git
+cd PriceTrackerBambulab
+pip install -r requirements.txt
+python -m playwright install
+python scraper.py
+This will output prices.json with the current prices.
+
+📬 Future Plans
+Track historical price changes
+
+Generate CSV or chart-based outputs
+
+GitHub Pages dashboard
+
+Alert system for price drops
+
+🤖 Maintained by @T3chieJack
+yaml
+Copy
+Edit
+
+---
+
+## ✅ Final Checklist
+
+| Task | Status |
+|------|--------|
+| `.github/workflows/scrape.yml` exists and contains valid YAML | ✅ |
+| `scraper.py` runs without error | ✅ |
+| `requirements.txt` includes `playwright` | ✅ |
+| Workflow permissions are set to **read/write** in repo settings | ✅ |
+| Manually triggered the first workflow | 🔜 |
+| Added README badge | ✅ |
+| Added fancy README description | ✅ |
+
+---
+
+Would you like me to:
+- Check your public repo and verify the workflow path?
+- Add CSV/Markdown exports?
+- Help you build a GitHub Pages UI that reads the prices?
+
+Let me know!
