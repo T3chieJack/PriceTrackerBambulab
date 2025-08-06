@@ -19,7 +19,6 @@ This project automatically tracks and logs the latest filament prices from the [
 ## 📂 Output Example (`prices.json`)
 
 
-
 [
   {
     "title": "PLA Basic - Cool Gray",
@@ -30,7 +29,7 @@ This project automatically tracks and logs the latest filament prices from the [
     "price": "€21,99"
   }
 ]
-⚙️ How It Works
+## ⚙️ How It Works
 scraper.py uses Playwright to simulate a browser and extract filament prices.
 
 GitHub Actions (in .github/workflows/scrape.yml) runs the scraper every 6 hours.
