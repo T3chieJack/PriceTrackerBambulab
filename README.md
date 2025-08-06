@@ -2,7 +2,7 @@
 
 ![Scrape Status](https://github.com/T3chieJack/PriceTrackerBambulab/actions/workflows/scrape.yml/badge.svg)
 
-This project automatically tracks and logs the latest filament prices from the [Bambu Lab EU Store](https://eu.store.bambulab.com/collections/filament). It uses a headless browser to scrape dynamically loaded prices, and updates them to this repository every 6 hours via GitHub Actions.
+This project automatically tracks and logs the latest filament prices from the [Bambu Lab UK Store](https://uk.store.bambulab.com/collections/bambu-lab-3d-printer-filament). It uses a headless browser to scrape dynamically loaded prices, and updates them to this repository every 6 hours via GitHub Actions.
 
 ---
 
