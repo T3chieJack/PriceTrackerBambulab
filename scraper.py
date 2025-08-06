@@ -8,30 +8,30 @@ def scrape_bambu_prices():
         page = browser.new_page()
         page.goto("https://uk.store.bambulab.com/collections/bambu-lab-3d-printer-filament", timeout=60000)
 
-        # Wait until the product grid is loaded
-        page.wait_for_selector("product-item", timeout=60000)
+        # Wait for product items (anchor tags)
+        page.wait_for_selector("a.product-item", timeout=60000)
 
-        # Scroll down to load lazy-loaded items
-        page.evaluate("""() => {
-            window.scrollTo(0, document.body.scrollHeight);
-        }""")
-        time.sleep(3)  # Allow extra content to load
+        # Scroll down to ensure lazy loading if any
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        time.sleep(3)
 
-        products = page.locator("product-item")
-
-        items = []
+        products = page.locator("a.product-item")
         count = products.count()
+        items = []
 
         for i in range(count):
-            title = products.nth(i).locator("p.product-title").inner_text()
-            price = products.nth(i).locator("span.price").inner_text()
+            product = products.nth(i)
+            title = product.locator("p.product-title").inner_text()
+            price = product.locator("span.price").inner_text()
             items.append({"title": title.strip(), "price": price.strip()})
 
-        browser.close()
+        # Optional: Save a screenshot for debugging
+        page.screenshot(path="debug_screenshot.png")
 
+        browser.close()
         return items
 
-# Save the scraped data to a JSON file
-prices = scrape_bambu_prices()
-with open("prices.json", "w", encoding="utf-8") as f:
-    json.dump(prices, f, indent=2, ensure_ascii=False)
+if __name__ == "__main__":
+    prices = scrape_bambu_prices()
+    with open("prices.json", "w", encoding="utf-8") as f:
+        json.dump(prices, f, indent=2, ensure_ascii=False)
