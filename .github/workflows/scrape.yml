@@ -2,8 +2,8 @@ name: Scrape BambuLab Filament Prices
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
-  workflow_dispatch:        # Manual run support
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -16,21 +16,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          python -m playwright install
+          python -m pip install --upgrade pip
+          pip install playwright
+          python -m playwright install --with-deps
 
       - name: Run scraper
         run: python scraper.py
 
       - name: Commit updated prices
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add prices.json
-          git commit -m "Update prices [auto]" || echo "No changes"
+          git commit -m "Update prices [auto]" || echo "No changes to commit"
           git push
-
