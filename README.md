@@ -43,6 +43,8 @@ Playwright (headless browser control)
 
 GitHub Actions (CI/CD automation)
 
+## 💻 Local Setup
+
 🧩 Setup for Local Use
 bash
 Copy
