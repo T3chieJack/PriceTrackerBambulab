@@ -25,6 +25,7 @@ This project automatically tracks and logs the latest filament prices from the [
     "price": "€21,99"
   }
 ]
+```json
 ⚙️ How It Works
 scraper.py uses Playwright to simulate a browser and extract filament prices.
 
