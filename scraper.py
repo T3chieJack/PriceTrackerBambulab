@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
-import time
 import json
+import time
 
 def scrape_bambu_prices():
     with sync_playwright() as p:
@@ -8,33 +8,30 @@ def scrape_bambu_prices():
         page = browser.new_page()
         page.goto("https://uk.store.bambulab.com/collections/bambu-lab-3d-printer-filament", timeout=60000)
 
-        # Wait for the page structure
-        page.wait_for_selector("body")
+        # Wait until the product grid is loaded
+        page.wait_for_selector("product-item", timeout=60000)
 
-        # Scroll to bottom to load lazy content
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        time.sleep(5)  # Give time for JS to load content
+        # Scroll down to load lazy-loaded items
+        page.evaluate("""() => {
+            window.scrollTo(0, document.body.scrollHeight);
+        }""")
+        time.sleep(3)  # Allow extra content to load
 
-        product_elements = page.query_selector_all("div.product-item-meta")
+        products = page.locator("product-item")
 
-        prices = []
-        for product in product_elements:
-            title_el = product.query_selector("div.product-title a")
-            price_el = product.query_selector("span.price")
+        items = []
+        count = products.count()
 
-            title = title_el.inner_text().strip() if title_el else "Unknown"
-            price = price_el.inner_text().strip() if price_el else "N/A"
-
-            prices.append({
-                "title": title,
-                "price": price
-            })
+        for i in range(count):
+            title = products.nth(i).locator("p.product-title").inner_text()
+            price = products.nth(i).locator("span.price").inner_text()
+            items.append({"title": title.strip(), "price": price.strip()})
 
         browser.close()
-        return prices
 
-if __name__ == "__main__":
-    prices = scrape_bambu_prices()
+        return items
 
-    with open("prices.json", "w", encoding="utf-8") as f:
-        json.dump(prices, f, indent=2, ensure_ascii=False)
+# Save the scraped data to a JSON file
+prices = scrape_bambu_prices()
+with open("prices.json", "w", encoding="utf-8") as f:
+    json.dump(prices, f, indent=2, ensure_ascii=False)
